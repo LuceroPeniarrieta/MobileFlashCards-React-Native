@@ -4,8 +4,14 @@ import { getDailyReminderValue, clearLocalNotification, setLocalNotification } f
 import { connect } from 'react-redux';
 import { white, green, pink, lightPurp, blue, red } from '../utils/colors';
 import Modal from 'react-native-modal';
+import DeckProfile from './DeckProfile';
 
 class Quiz extends Component {
+
+    goToCard = () => {
+        this.props.navigation.navigate('DeckProfile', { title: this.props.navigation.state.params.title })  
+        this.setState({ isModalVisible: false })
+    }
     
     nextQuestion = () => {
         let index;
@@ -23,6 +29,12 @@ class Quiz extends Component {
             clearLocalNotification()
             .then(setLocalNotification)
         }
+    }
+
+    startQuizAgain = () => {
+        this.setState({
+            isModalVisible: false,
+            indexQuestions: 0});
     }
 
     setText = () => {
@@ -156,6 +168,14 @@ class Quiz extends Component {
                                 textAlign: 'center',
                             }}>{`SCORE: ${this.state.points}`}</Text>
                         </View>
+                        <Button style={styles.buttonText}
+                        title="Restart Quiz"
+                        onPress={this.startQuizAgain}
+                        />
+                        <Button style={styles.buttonText}
+                        title="Back to Deck"
+                        onPress={this.goToCard}
+                        />
                     </Modal>
               </View>
                 

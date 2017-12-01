@@ -26,7 +26,8 @@ export class AddDeck extends Component {
             const data = this.state;
     
             this.props.addDeckProp(key, data);
-            this.props.navigation.navigate('Decks');
+
+            this.props.navigation.navigate('DeckProfile', { title: key })
         } 
     }
 
